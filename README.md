@@ -16,11 +16,10 @@
   <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue">
 </p>
 
+https://github.com/user-attachments/assets/b3e9c61d-bf07-4046-82d0-4fc587bbc195
+
 <p align="center">
-  <a href="docs/media/shopfloorpilot-demo.mp4">
-    <img src="docs/media/demo-poster.jpg" alt="Watch the 90-second demo" width="820">
-  </a><br>
-  <sub>▶ <a href="docs/media/shopfloorpilot-demo.mp4">Watch the 90-second demo</a>, recorded from live agent runs on synthetic factory data.</sub>
+  <sub>90-second demo, recorded from live agent runs on synthetic factory data. <a href="https://github.com/wandering2025/ShopfloorPilot/raw/refs/heads/main/docs/media/shopfloorpilot-demo.mp4">Download the 1080p MP4</a>.</sub>
 </p>
 
 ## Why ShopfloorPilot
