@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "catalog_path": "templates/catalog.json",
+  "catalog_sha256": "f1f574c70445fc73a75f19f6a520a21ed71008ca40eab4687f60561ac0735a09",
+  "units": {
+    "simulated_time": "integer_seconds",
+    "intervals": "half_open",
+    "quantity": "integer_units_1_to_10_one_route_chain_per_unit",
+    "telemetry": "scaled_integers_with_explicit_units"
+  },
+  "scenarios": [
+    {
+      "scenario_id": "normal",
+      "seed": 101,
+      "public_path": "normal/scenario.json",
+      "public_sha256": "5133108a7c99e3d99aeb1f6d78e70fbebcc2acda385a6f1903f2b69f0f360486",
+      "evaluator_path": "evaluator_only/normal.json",
+      "evaluator_sha256": "cd086ea35fa274543207281ab993acf9a1f1460e95ed9dec73ac1c7168582e83",
+      "expectation_path": "normal/expectations.json",
+      "expectation_sha256": "1b6f67a915edc32653709f6a69c03070a758972a334332a4eaa96fb78510f664",
+      "expected_outcome": "completes"
+    },
+    {
+      "scenario_id": "urgent_order",
+      "seed": 202,
+      "public_path": "urgent_order/scenario.json",
+      "public_sha256": "a8f5ca788c968f011712579190c26b20c1f37596412db4e53302910591d3dc0b",
+      "evaluator_path": "evaluator_only/urgent_order.json",
+      "evaluator_sha256": "1ffc80e406aff3dd6de2878c05e4b274a062fcc5c7bd51306119dcafa0d7acf7",
+      "expectation_path": "urgent_order/expectations.json",
+      "expectation_sha256": "43805f53db5cd155dcf5e94d591ec5e2de1af55755bed975bb9a3e25f748dd7b",
+      "expected_outcome": "replan_required"
+    },
+    {
+      "scenario_id": "machine_breakdown",
+      "seed": 303,
+      "public_path": "machine_breakdown/scenario.json",
+      "public_sha256": "369d187db4d7712b1c7a59cca5371d00ca06ba79995283d62d1126aaf847c714",
+      "evaluator_path": "evaluator_only/machine_breakdown.json",
+      "evaluator_sha256": "5064165a6d92384305b282c57ae4b1bb2f189238695c73d9251b96cd11d996cd",
+      "expectation_path": "machine_breakdown/expectations.json",
+      "expectation_sha256": "3e7155d19f408dec7b0340264d51fb6f27fa21f7b6d42309cd7a84acb86645fd",
+      "expected_outcome": "recovery_feasible"
+    },
+    {
+      "scenario_id": "no_feasible_recovery",
+      "seed": 404,
+      "public_path": "no_feasible_recovery/scenario.json",
+      "public_sha256": "377d6236867c206b5fb6d201ac714a0552279ba121844411fb82d7bfa3d6111d",
+      "evaluator_path": "evaluator_only/no_feasible_recovery.json",
+      "evaluator_sha256": "07dda48f77c0a54654693389353bd2a205d7de64f63ad3ed967423c381954507",
+      "expectation_path": "no_feasible_recovery/expectations.json",
+      "expectation_sha256": "1c32a957fc8b939f35667bafe1d2a817d4665e01fe5a21869a6a84fb0b30fff7",
+      "expected_outcome": "no_feasible_recovery"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "document_id": "note-rotating-component-screen",
+  "version": "v1.0.0",
+  "title": "Synthetic repeatable rotating-component vibration screen",
+  "provenance": "original_synthetic",
+  "provenance_detail": "Original synthetic screening guidance authored for the demonstration from public observable signal concepts; it contains no external source text.",
+  "applicable_capabilities": ["milling", "drilling", "tapping"],
+  "chunks": [
+    {
+      "chunk_id": "chunk-rotating-component-screen",
+      "evidence_excerpt": "For repeatable rotating-component vibration in this synthetic demonstration, compare the vibration trend across unloaded, cutting, and coast-down observations, then review lubrication indication and sensor attachment. Persistence across conditions is evidence for further inspection, not identification of a failed component.",
+      "observable_symptoms": [
+        "repeatable rotating-component vibration",
+        "vibration persists across operating conditions"
+      ],
+      "observable_signal_fields": ["vibration_micrometers_per_second"],
+      "possible_explanation": "A rotating-element wear, lubrication, attachment, or sensing condition is possible.",
+      "suggested_checks": [
+        "Compare vibration trends across unloaded, cutting, and coast-down observations.",
+        "Verify the vibration sensor attachment and repeat the reading.",
+        "Review the available lubrication indication and synthetic maintenance history."
+      ],
+      "additional_signal_fields": [
+        "temperature_millicelsius",
+        "lubrication_pressure_kilopascals"
+      ],
+      "limitations": [
+        "No frequency spectrum, calibrated baseline, physical inspection result, or industrial threshold is present.",
+        "The note supports screening only and cannot identify a component failure."
+      ]
+    }
+  ]
+}

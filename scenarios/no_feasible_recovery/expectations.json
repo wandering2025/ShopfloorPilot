@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "scenario_id": "no_feasible_recovery",
+  "expected_outcome": "no_feasible_recovery",
+  "assertions": [
+    {"code": "all-milling-resources-blocked", "message": "Both milling-capable machines are unavailable from the intervention through the hard horizon."},
+    {"code": "hard-not-soft-contradiction", "message": "At least one 900-second milling operation remains, so infeasibility is caused by capability/window/horizon constraints rather than due-date tardiness."}
+  ],
+  "alternate_recovery": null,
+  "hard_contradiction": {
+    "capability": "milling",
+    "required_duration_seconds": 900,
+    "capable_machine_ids": ["CNC02", "CNC03"],
+    "blocked_windows": [{"start_seconds": 3000, "end_seconds": 14400}, {"start_seconds": 3000, "end_seconds": 14400}],
+    "hard_horizon_seconds": 14400,
+    "explanation": "CNC02 and CNC03 are the only milling-capable resources and both are unavailable for every remaining second through the hard horizon; soft due dates cannot relax this hard contradiction."
+  }
+}

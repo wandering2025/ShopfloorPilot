@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "legal_quantity_two": {
+    "run_id": "run-s03-legal",
+    "simulated_time_seconds": 0,
+    "hard_horizon_seconds": 3000,
+    "order": {
+      "order_id": "order-s03-plate-two",
+      "product_id": "prod_aluminum_mounting_plate",
+      "quantity": 2,
+      "release_time_seconds": 0,
+      "due_time_seconds": 2000,
+      "priority_weight": 1,
+      "status": "pending"
+    },
+    "assignments": [
+      {"unit_index": 1, "sequence_index": 0, "attempt_id": "attempt-legal-u1-mill", "machine_id": "CNC02", "start_seconds": 0, "end_seconds": 900},
+      {"unit_index": 1, "sequence_index": 1, "attempt_id": "attempt-legal-u1-drill", "machine_id": "CNC01", "start_seconds": 900, "end_seconds": 1320},
+      {"unit_index": 1, "sequence_index": 2, "attempt_id": "attempt-legal-u1-qc", "machine_id": "QC01", "start_seconds": 1320, "end_seconds": 1500},
+      {"unit_index": 2, "sequence_index": 0, "attempt_id": "attempt-legal-u2-mill", "machine_id": "CNC02", "start_seconds": 900, "end_seconds": 1800},
+      {"unit_index": 2, "sequence_index": 1, "attempt_id": "attempt-legal-u2-drill", "machine_id": "CNC01", "start_seconds": 1800, "end_seconds": 2220},
+      {"unit_index": 2, "sequence_index": 2, "attempt_id": "attempt-legal-u2-qc", "machine_id": "QC01", "start_seconds": 2220, "end_seconds": 2400}
+    ],
+    "weighted_total_tardiness_seconds": 400,
+    "makespan_seconds": 2400
+  },
+  "interrupted_recovery": {
+    "run_id": "run-s03-recovery",
+    "simulated_time_seconds": 300,
+    "hard_horizon_seconds": 3000,
+    "order": {
+      "order_id": "order-s03-recovery",
+      "product_id": "prod_aluminum_mounting_plate",
+      "quantity": 1,
+      "release_time_seconds": 0,
+      "due_time_seconds": 2000,
+      "priority_weight": 2,
+      "status": "running"
+    },
+    "assignments": [
+      {"unit_index": 1, "sequence_index": 0, "attempt_id": "attempt-recovery-mill-2", "machine_id": "CNC03", "start_seconds": 300, "end_seconds": 1200},
+      {"unit_index": 1, "sequence_index": 1, "attempt_id": "attempt-recovery-drill-1", "machine_id": "CNC01", "start_seconds": 1200, "end_seconds": 1620},
+      {"unit_index": 1, "sequence_index": 2, "attempt_id": "attempt-recovery-qc-1", "machine_id": "QC01", "start_seconds": 1620, "end_seconds": 1800}
+    ],
+    "weighted_total_tardiness_seconds": 0,
+    "makespan_seconds": 1800
+  },
+  "fixed_history": {
+    "run_id": "run-s03-history",
+    "simulated_time_seconds": 1000,
+    "hard_horizon_seconds": 3000,
+    "order": {
+      "order_id": "order-s03-history",
+      "product_id": "prod_aluminum_mounting_plate",
+      "quantity": 1,
+      "release_time_seconds": 0,
+      "due_time_seconds": 2000,
+      "priority_weight": 1,
+      "status": "running"
+    },
+    "assignments": [
+      {"unit_index": 1, "sequence_index": 2, "attempt_id": "attempt-history-qc-1", "machine_id": "QC01", "start_seconds": 1320, "end_seconds": 1500}
+    ],
+    "weighted_total_tardiness_seconds": 0,
+    "makespan_seconds": 1500
+  },
+  "urgent_order_delta": {
+    "run_id": "run-s03-urgent",
+    "simulated_time_seconds": 3600,
+    "hard_horizon_seconds": 7200,
+    "order": {
+      "order_id": "order-s03-urgent-009",
+      "product_id": "prod_aluminum_mounting_plate",
+      "quantity": 1,
+      "release_time_seconds": 3600,
+      "due_time_seconds": 4800,
+      "priority_weight": 10,
+      "status": "pending"
+    },
+    "assignments": [
+      {"unit_index": 1, "sequence_index": 0, "attempt_id": "attempt-urgent-mill-1", "machine_id": "CNC03", "start_seconds": 3600, "end_seconds": 4500},
+      {"unit_index": 1, "sequence_index": 1, "attempt_id": "attempt-urgent-drill-1", "machine_id": "CNC01", "start_seconds": 4500, "end_seconds": 4920},
+      {"unit_index": 1, "sequence_index": 2, "attempt_id": "attempt-urgent-qc-1", "machine_id": "QC01", "start_seconds": 4920, "end_seconds": 5100}
+    ],
+    "weighted_total_tardiness_seconds": 3000,
+    "makespan_seconds": 5100
+  },
+  "adversarial_expectations": {
+    "missing": "missing_operation",
+    "duplicate": "duplicate_operation",
+    "unknown": "unknown_operation",
+    "wrong_capability": "capability_mismatch",
+    "wrong_duration": "duration_mismatch",
+    "machine_overlap": "machine_overlap",
+    "precedence_reversal": "precedence_violation",
+    "early_release": "release_time_violation",
+    "past_start": "start_before_snapshot",
+    "downtime": "calendar_violation",
+    "horizon_overflow": "hard_horizon_violation",
+    "completed_move": "completed_operation_rescheduled",
+    "running_move": "running_operation_rescheduled",
+    "short_restart": "restart_duration_mismatch"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "document_id": "note-tool-holder-check",
+  "version": "v1.0.0",
+  "title": "Synthetic tool-holder seating and runout check",
+  "provenance": "original_synthetic",
+  "provenance_detail": "Original synthetic guidance written for ShopfloorPilot vocabulary and safe offline evaluation; it is not copied from an equipment manual.",
+  "applicable_capabilities": ["milling", "drilling", "tapping"],
+  "chunks": [
+    {
+      "chunk_id": "chunk-tool-holder-check",
+      "evidence_excerpt": "In this synthetic demonstration, a vibration alarm during cutting warrants checking tool-holder seating, visible debris, runout indications, and whether the cutting load is asymmetric. These checks can separate a tool-interface condition from other possibilities; they do not establish a cause.",
+      "observable_symptoms": [
+        "vibration alarm during cutting",
+        "vibration changes with tool or load condition"
+      ],
+      "observable_signal_fields": ["vibration_micrometers_per_second"],
+      "possible_explanation": "A tool-interface, runout, or asymmetric cutting-load condition is one possible explanation.",
+      "suggested_checks": [
+        "Under the applicable operator safety procedure, inspect seating surfaces and visible tool-holder condition.",
+        "Compare repeat observations before and after a controlled tool or load change.",
+        "Check whether vibration follows the tool setup or remains with the machine."
+      ],
+      "additional_signal_fields": [
+        "temperature_millicelsius",
+        "drive_current_milliamps"
+      ],
+      "limitations": [
+        "This is synthetic advisory text with no calibrated runout or vibration threshold.",
+        "A check result must be recorded as a new observation and cannot confirm a root cause by itself."
+      ]
+    }
+  ]
+}

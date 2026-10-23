@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling>=1.26,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "shopfloor-pilot"
+version = "0.1.0"
+description = "An LLM engineering agent that plans, diagnoses and re-plans a simulated manufacturing cell, with human approval"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Haoyang" }]
+keywords = ["llm-agent", "tool-calling", "rag", "manufacturing", "scheduling", "or-tools", "cp-sat", "digital-twin"]
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "simpy>=4.1,<5",
+    "ortools>=9.11,<10",
+    "pydantic>=2.9,<3",
+    "streamlit>=1.40,<2",
+    "plotly>=5.24,<7",
+    "openai>=3.35.1,<4",
+    "jsonschema>=4.26,<5",
+]
+
+[project.scripts]
+shopfloor-pilot = "shopfloor_pilot.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3,<9",
+    "ruff>=0.7,<1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/shopfloor_pilot"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --disable-plugin-autoload"
+filterwarnings = ["error::DeprecationWarning:shopfloor_pilot.*"]
+markers = [
+    "live: opt-in paid DeepSeek readiness; requires SHOPFLOOR_RUN_LIVE=1 and configured budget",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.format]
+quote-style = "double"

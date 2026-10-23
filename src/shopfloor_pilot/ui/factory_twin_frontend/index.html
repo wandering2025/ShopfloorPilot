@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ShopfloorPilot factory twin</title>
+    <!-- Every script is served locally by the Streamlit server; no CDN. -->
+    <script>
+      window.__twinErrors = [];
+      addEventListener("error", (event) => window.__twinErrors.push(String(event.message)));
+      addEventListener("unhandledrejection", (event) =>
+        window.__twinErrors.push(String(event.reason)));
+    </script>
+    <script type="importmap">
+      { "imports": { "three": "./vendor/three/three.module.js" } }
+    </script>
+    <style>
+      :root {
+        --bg: #0f172a;
+        --panel: #111c33;
+        --line: #26344f;
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --idle: #94a3b8;
+        --running: #22c55e;
+        --failed: #ef4444;
+        --maintenance: #f59e0b;
+        --restored: #06b6d4;
+        --reassigned: #a855f7;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: transparent; color: var(--text);
+        font: 13px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; }
+      #twin { background: var(--bg); border: 1px solid var(--line); border-radius: 10px;
+        padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+      .toolbar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+      .toolbar button, .toolbar select { background: #1e293b; color: var(--text);
+        border: 1px solid var(--line); border-radius: 6px; padding: 4px 9px; font: inherit;
+        cursor: pointer; }
+      .toolbar button:hover { border-color: #64748b; }
+      .toolbar #play { background: #1d4ed8; border-color: #1d4ed8; min-width: 82px; }
+      .toolbar label { color: var(--muted); display: inline-flex; gap: 4px; align-items: center; }
+      .spacer { flex: 1; }
+      .status-line { display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline; }
+      #time { font: 600 17px/1 ui-monospace, SFMono-Regular, Consolas, monospace; }
+      #version, #frame-pos { color: var(--muted); }
+      #mode { font-weight: 700; padding: 1px 8px; border-radius: 999px; background: #334155; }
+      #mode[data-mode="live"] { background: #14532d; color: #bbf7d0; }
+      #scrub { width: 100%; accent-color: #3b82f6; }
+      .stage { position: relative; height: 500px; border-radius: 8px; overflow: hidden;
+        background: #0b1220; }
+      #scene { position: absolute; inset: 0; }
+      #scene canvas { display: block; }
+      #scene-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+      .scene-label { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: 11px;
+        padding: 1px 6px; border-radius: 4px; background: rgba(15, 23, 42, 0.78);
+        color: var(--text); border: 1px solid var(--line); }
+      .scene-label.zone { color: #e2e8f0; background: rgba(15, 23, 42, 0.7); border: 0; }
+      .scene-label[data-status="running"] { border-color: var(--running); color: #bbf7d0; }
+      .scene-label[data-status="failed"] { border-color: var(--failed); color: #fecaca;
+        background: rgba(127, 29, 29, 0.85); }
+      .scene-label[data-status="restored"] { border-color: var(--restored); color: #a5f3fc; }
+      .scene-label[data-status="maintenance"] { border-color: var(--maintenance); }
+      .scene-label.arc { border-color: var(--reassigned); color: #e9d5ff;
+        background: rgba(59, 7, 100, 0.82); }
+      #banner { min-height: 58px; padding: 6px 12px; border-radius: 8px; font-size: 13px;
+        background: var(--panel); border: 1px solid var(--line); color: var(--muted); }
+      #banner[data-mode="current"] { background: #1e1b4b; border-color: #6366f1; color: var(--text); }
+      #banner[data-mode="current"] strong { color: #c7d2fe; }
+      .legend { position: absolute; left: 10px; bottom: 8px; display: flex; flex-wrap: wrap;
+        gap: 10px; font-size: 11px; color: #cbd5e1; pointer-events: none;
+        background: rgba(15, 23, 42, 0.78); padding: 3px 8px; border-radius: 6px; }
+      .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px;
+        margin-right: 4px; vertical-align: -1px; }
+      #cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px; }
+      .card { background: var(--panel); border: 1px solid var(--line); border-left: 5px solid var(--idle);
+        border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 4px;
+        min-height: 128px; }
+      .card header { display: flex; justify-content: space-between; align-items: center; }
+      .machine-id { font-weight: 700; font-size: 14px; }
+      .pill { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 999px;
+        background: #334155; }
+      .machine-name, .queue, .held { color: var(--muted); font-size: 12px; }
+      .held { color: #fca5a5; }
+      .bar { height: 6px; background: #0b1220; border-radius: 3px; overflow: hidden; }
+      .bar i { display: block; height: 100%; width: 0; background: var(--running); }
+      .card[data-display="running"] { border-left-color: var(--running); }
+      .card[data-display="running"] .pill { background: #14532d; color: #bbf7d0; }
+      .card[data-display="failed"] { border-left-color: var(--failed); background: #2a1220; }
+      .card[data-display="failed"] .pill { background: var(--failed); color: white; }
+      .card[data-display="restored"] { border-left-color: var(--restored); }
+      .card[data-display="restored"] .pill { background: #164e63; color: #a5f3fc; }
+      .card[data-display="maintenance"] { border-left-color: var(--maintenance); }
+      .lower { display: grid; grid-template-columns: 1.6fr 1fr; gap: 8px; }
+      @media (max-width: 760px) { .lower { grid-template-columns: 1fr; } .stage { height: 320px; } }
+      #ticker { list-style: none; margin: 0; padding: 0; font-size: 12px; max-height: 172px;
+        overflow: hidden; }
+      #ticker li { padding: 2px 6px; border-left: 3px solid transparent; color: var(--muted); }
+      #ticker li.current { color: var(--text); border-left-color: #3b82f6; background: #13203a; }
+      #ticker li.machine_down, #ticker li.operation_interrupted { color: #fca5a5; }
+      #ticker li.plan_applied { color: #d8b4fe; }
+      #ticker li.machine_restored { color: #67e8f9; }
+      .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+        padding: 8px 10px; }
+      .panel h3 { margin: 0 0 4px; font-size: 12px; color: var(--muted); font-weight: 600;
+        text-transform: uppercase; letter-spacing: 0.04em; }
+      #verify { font-weight: 600; }
+      #verify[data-status="match"] { color: #86efac; }
+      #verify[data-status="mismatch"] { color: #fca5a5; }
+      #verify[data-status="pending"] { color: var(--muted); }
+      #python-check[data-passed="false"] { color: #fca5a5; }
+      .fine { color: var(--muted); font-size: 11px; }
+      #fatal { color: #fecaca; background: #450a0a; padding: 8px; border-radius: 6px; }
+    </style>
+  </head>
+  <body>
+    <main id="twin" data-verification="pending">
+      <div id="fatal" hidden></div>
+      <div class="toolbar" role="toolbar" aria-label="Playback controls">
+        <button id="restart" title="Replay this run from version zero">⏮ From start</button>
+        <button id="prev" title="Previous committed event group">◀ Prev</button>
+        <button id="play">▶ Play</button>
+        <button id="next" title="Next committed event group">Next ▶</button>
+        <button id="live" title="Jump to the latest committed state">Live ⏭</button>
+        <label>Speed <select id="speed" aria-label="Playback speed"></select></label>
+        <label title="Pause briefly at failures, interruptions, plans and restorations">
+          <input type="checkbox" id="hold" /> Hold at key events</label>
+        <label title="Play newly committed groups automatically after each action">
+          <input type="checkbox" id="autoplay" /> Auto-play new events</label>
+        <label title="Idle gaps (no running work) play 20× faster">
+          <input type="checkbox" id="skip-idle" /> Fast idle gaps</label>
+        <span class="spacer"></span>
+        <label>Renderer
+          <select id="renderer" aria-label="Renderer">
+            <option value="auto">Auto</option>
+            <option value="webgl">3D (WebGL)</option>
+            <option value="canvas2d">2D (no WebGL)</option>
+          </select></label>
+      </div>
+      <div class="status-line">
+        <span id="time">—</span><span id="mode">—</span><span id="version"></span>
+        <span id="frame-pos"></span>
+      </div>
+      <input id="scrub" type="range" min="0" max="1" step="1" value="0"
+        aria-label="Playback time in simulated seconds" />
+      <div id="banner" data-mode="none" aria-live="polite"></div>
+      <div class="stage">
+        <div id="scene"></div>
+        <div id="scene-labels"></div>
+        <div class="legend">
+          <span><i style="background: var(--idle)"></i>idle</span>
+          <span><i style="background: var(--running)"></i>running</span>
+          <span><i style="background: var(--failed)"></i>failed / down</span>
+          <span><i style="background: var(--restored)"></i>restored</span>
+          <span><i style="border: 2px solid var(--failed)"></i>interrupted unit</span>
+          <span><i style="border: 2px solid var(--reassigned)"></i>reassigned by replan (until done or machine restored)</span>
+          <span>dim = order not yet released</span>
+        </div>
+      </div>
+      <section id="cards" aria-label="Machine status at playback time"></section>
+      <div class="lower">
+        <div class="panel">
+          <h3>Recorded events up to playback time</h3>
+          <ul id="ticker"></ul>
+        </div>
+        <div class="panel">
+          <h3>Projection check</h3>
+          <div id="verify" data-status="pending"></div>
+          <div id="python-check" class="fine"></div>
+          <div id="renderer-info" class="fine"></div>
+          <p class="fine">Derived only from the committed SQLite event stream. Positions,
+            queues and movement between stations are visual conventions; transport is not
+            modeled. Progress is elapsed ÷ planned duration of the running attempt.</p>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="./twin.js"></script>
+  </body>
+</html>

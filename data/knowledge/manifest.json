@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "corpus_id": "shopfloor-synthetic-maintenance-v1",
+  "entries": [
+    {
+      "document_id": "note-conflicting-readings",
+      "version": "v1.0.0",
+      "source_path": "data/knowledge/notes/note_conflicting_readings.json",
+      "source_sha256": "26c9d4209cf29e2144e79b55413de61b235b378ad18bd3bb7227dfaca14e5ae6",
+      "chunk_ids": ["chunk-conflicting-readings"]
+    },
+    {
+      "document_id": "note-instruction-as-data",
+      "version": "v1.0.0",
+      "source_path": "data/knowledge/notes/note_instruction_as_data.json",
+      "source_sha256": "263afd4f6662166c2af59814aa5472e1369f41ebff863e44bc8e982831d92dc4",
+      "chunk_ids": ["chunk-instruction-data-only"]
+    },
+    {
+      "document_id": "note-insufficient-observation",
+      "version": "v1.0.0",
+      "source_path": "data/knowledge/notes/note_insufficient_observation.json",
+      "source_sha256": "e876f6635107cce95ad789688ef556ae77d93bbfa1ccddd4da34fe84f264438b",
+      "chunk_ids": ["chunk-insufficient-observation"]
+    },
+    {
+      "document_id": "note-low-lubrication-pressure",
+      "version": "v1.0.0",
+      "source_path": "data/knowledge/notes/note_low_lubrication_pressure.json",
+      "source_sha256": "da0ad174b008bb035af9c8d9cc0b2a717f438689b2517f5e0838083e5d31fe49",
+      "chunk_ids": ["chunk-low-lubrication-pressure"]
+    },
+    {
+      "document_id": "note-normal-operating-band",
+      "version": "v1.0.0",
+      "source_path": "data/knowledge/notes/note_normal_operating_band.json",
+      "source_sha256": "511263bf1f45d33ea1822fa6387b7f9157bee009106560153d91ae31297b12bc",
+      "chunk_ids": ["chunk-normal-operating-band"]
+    },
+    {
+      "document_id": "note-queue-pressure",
+      "version": "v1.0.0",
+      "source_path": "data/knowledge/notes/note_queue_pressure.json",
+      "source_sha256": "cf3c2378691d847d23499ffecfb8a57c46a259766c4e0d8672d7f2d0e307736a",
+      "chunk_ids": ["chunk-queue-pressure"]
+    },
+    {
+      "document_id": "note-restoration-authority",
+      "version": "v1.0.0",
+      "source_path": "data/knowledge/notes/note_restoration_authority.json",
+      "source_sha256": "804e86ee321b094328e543fbae0cb32d296e41a82db98fa33d34cc818a9667d8",
+      "chunk_ids": ["chunk-restoration-authority"]
+    },
+    {
+      "document_id": "note-rotating-component-screen",
+      "version": "v1.0.0",
+      "source_path": "data/knowledge/notes/note_rotating_component_screen.json",
+      "source_sha256": "844ef36ea3bb6257aba62eaeb2c4d4b16939aa3a606fdfc2fe7d64d062084146",
+      "chunk_ids": ["chunk-rotating-component-screen"]
+    },
+    {
+      "document_id": "note-temp-vibration-triage",
+      "version": "v1.0.0",
+      "source_path": "data/knowledge/notes/note_temp_vibration_triage.json",
+      "source_sha256": "470d6a46079d7eb6f1be528f29449eee4753cc8b76b84d4d2f12ebf5ec73cd1e",
+      "chunk_ids": ["chunk-temp-vibration-ambiguity"]
+    },
+    {
+      "document_id": "note-tool-holder-check",
+      "version": "v1.0.0",
+      "source_path": "data/knowledge/notes/note_tool_holder_check.json",
+      "source_sha256": "370c218af7040947e4ec10a2280e0d44c311834e0978f525433b79d9eea1ba4b",
+      "chunk_ids": ["chunk-tool-holder-check"]
+    },
+    {
+      "document_id": "note-zero-drive-current",
+      "version": "v1.0.0",
+      "source_path": "data/knowledge/notes/note_zero_drive_current.json",
+      "source_sha256": "e3c85605e6ad26c4949cf13361763ec0c67ec9eb931c5d5c5837df5514dbc0bc",
+      "chunk_ids": ["chunk-zero-drive-current"]
+    }
+  ]
+}

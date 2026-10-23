@@ -1,0 +1,26 @@
+{
+  "time_unit": "integer_simulated_seconds",
+  "tiny_two_units": {
+    "milling_seconds_per_unit": 3,
+    "qc_seconds_per_unit": 2,
+    "due_seconds": 6,
+    "priority": 2,
+    "horizon_seconds": 20,
+    "lower_bound_makespan": 8,
+    "optimal_weighted_tardiness": 4,
+    "optimal_makespan": 8,
+    "optimal_scalar": 92,
+    "derivation": "One mill processes two 3-second units; the last unit then needs 2 seconds QC. [0,3)/[3,5) and [3,6)/[6,8) attain the bound. T=2*(8-6)=4; scalar=21*4+8."
+  },
+  "priority_tradeoff": {
+    "long_route": [3, 10],
+    "short_route": [2, 1],
+    "due_long": 20,
+    "due_short": 3,
+    "priority_long": 1,
+    "priority_short": 10,
+    "short_first": {"weighted_tardiness": 0, "makespan": 15},
+    "long_first": {"weighted_tardiness": 110, "makespan": 14},
+    "derivation": "Zero tardiness requires short mill [0,2), short QC [2,3). Long mill then finishes no earlier than 5 and long QC no earlier than 15. Long-first can finish at 14 but delays the short order until 14."
+  }
+}

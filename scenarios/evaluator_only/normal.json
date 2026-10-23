@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "scenario_id": "normal",
+  "seed": 101,
+  "interventions": [
+    {"intervention_id": "intervention-normal-checkpoint", "at_seconds": 7200, "kind": "checkpoint", "target_machine_id": null, "injected_status": null, "order_to_add": null, "unavailable_until_seconds": null, "private_truth_ref": null}
+  ],
+  "fault_truth": [],
+  "observation_templates": [
+    {
+      "observation_id": "observation-normal-cnc01",
+      "machine_id": "CNC01",
+      "observed_at_seconds": 7200,
+      "signals": [
+        {"name": "temperature_millicelsius", "base_value": 48200, "jitter_min": -300, "jitter_max": 300, "unit": "mdegC"},
+        {"name": "vibration_micrometers_per_second", "base_value": 2100, "jitter_min": -100, "jitter_max": 100, "unit": "um_per_s"}
+      ],
+      "public_summary": "Synthetic readings remain within the fixture's ordinary operating band."
+    }
+  ],
+  "diagnostic_variant": null
+}

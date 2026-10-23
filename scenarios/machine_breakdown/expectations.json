@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "scenario_id": "machine_breakdown",
+  "expected_outcome": "recovery_feasible",
+  "assertions": [
+    {"code": "interruption-records-waste", "message": "A faulted running attempt retains consumed time as wasted work."},
+    {"code": "full-restart-on-alternate", "message": "The affected milling operation restarts at full duration on compatible CNC03."}
+  ],
+  "alternate_recovery": {"failed_machine_id": "CNC02", "alternate_machine_id": "CNC03", "capability": "milling", "restart_full_duration_seconds": 900},
+  "hard_contradiction": null
+}

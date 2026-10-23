@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "scenario_id": "normal",
+  "expected_outcome": "completes",
+  "assertions": [
+    {"code": "all-orders-complete", "message": "All eight initial orders can complete within the hard horizon."},
+    {"code": "final-qc-required", "message": "Every unit route ends at the constrained QC01 inspection resource."}
+  ],
+  "alternate_recovery": null,
+  "hard_contradiction": null
+}

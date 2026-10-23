@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "document_id": "note-conflicting-readings",
+  "version": "v1.0.0",
+  "title": "Synthetic conflicting telemetry handling",
+  "provenance": "original_synthetic",
+  "provenance_detail": "Original synthetic evidence-quality guidance created for deterministic diagnostic tests; it is not based on a proprietary data-quality procedure.",
+  "applicable_capabilities": ["milling", "drilling", "tapping", "inspection"],
+  "chunks": [
+    {
+      "chunk_id": "chunk-conflicting-readings",
+      "evidence_excerpt": "If the same synthetic machine and simulated timestamp contain conflicting readings for one signal, mark the evidence as conflicting. Verify sensor identity, units, timestamp association, and repeat the measurement before selecting a diagnostic explanation.",
+      "observable_symptoms": [
+        "same timestamp has conflicting readings for the same signal",
+        "sensor values disagree for one machine"
+      ],
+      "observable_signal_fields": [
+        "temperature_millicelsius",
+        "vibration_micrometers_per_second",
+        "drive_current_milliamps",
+        "lubrication_pressure_kilopascals",
+        "queue_depth_units"
+      ],
+      "possible_explanation": null,
+      "suggested_checks": [
+        "Verify that both readings name the same machine, signal, unit, and simulated time.",
+        "Check the observation and event identifiers for duplication or misassociation.",
+        "Repeat the measurement and preserve both original observations."
+      ],
+      "additional_signal_fields": [],
+      "limitations": [
+        "Conflict detection identifies an evidence problem only.",
+        "It cannot decide which reading is correct or support a root-cause conclusion until the discrepancy is resolved."
+      ]
+    }
+  ]
+}

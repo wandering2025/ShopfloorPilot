@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "document_id": "note-low-lubrication-pressure",
+  "version": "v1.0.0",
+  "title": "Synthetic low lubrication-pressure alarm checks",
+  "provenance": "original_synthetic",
+  "provenance_detail": "Original synthetic maintenance guidance authored for local deterministic retrieval; it contains no proprietary procedures or calibrated machine limits.",
+  "applicable_capabilities": ["milling", "drilling", "tapping"],
+  "chunks": [
+    {
+      "chunk_id": "chunk-low-lubrication-pressure",
+      "evidence_excerpt": "For a synthetic low lubrication-pressure alarm, check the displayed gauge or sensor, reservoir indication, filter indication, visible leaks, and pump status. Repeat the pressure observation before separating a delivery condition from an indication problem.",
+      "observable_symptoms": [
+        "machine unavailable after a low lubrication-pressure alarm",
+        "low lubrication pressure reading"
+      ],
+      "observable_signal_fields": ["lubrication_pressure_kilopascals"],
+      "possible_explanation": "A reservoir, restriction, leakage, pump-indication, or pressure-measurement condition is possible.",
+      "suggested_checks": [
+        "Have an authorized operator inspect the displayed reservoir, filter, leak, and pump indications.",
+        "Repeat or cross-check the lubrication-pressure observation.",
+        "Compare the pressure indication with temperature and vibration observations from the same time window."
+      ],
+      "additional_signal_fields": [
+        "temperature_millicelsius",
+        "vibration_micrometers_per_second"
+      ],
+      "limitations": [
+        "The fixture defines no calibrated pressure threshold or hydraulic model.",
+        "These checks do not establish a cause, prove damage, or confirm that maintenance is complete."
+      ]
+    }
+  ]
+}

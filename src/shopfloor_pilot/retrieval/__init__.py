@@ -1,0 +1,55 @@
+"""Verified synthetic guidance and deterministic lexical retrieval."""
+
+from .corpus import DEFAULT_KNOWLEDGE_MANIFEST, load_corpus
+from .evaluation import evaluate_fixture, evaluate_retrieval_fixture
+from .lexical import LexicalRetriever, resolve_citation, tokenize
+from .models import (
+    CorpusManifest,
+    CorpusManifestEntry,
+    KnowledgeChunk,
+    KnowledgeCitation,
+    KnowledgeCorpus,
+    KnowledgeDocument,
+    KnowledgeNote,
+    KnowledgeNoteChunk,
+    RetrievalConfig,
+    RetrievalEvaluationQueryResult,
+    RetrievalEvaluationReport,
+    RetrievalEvaluationSummary,
+    RetrievalHit,
+    RetrievalIssue,
+    RetrievalIssueCode,
+    RetrievalRequest,
+    RetrievalResult,
+    RetrievalScoringDefinition,
+    RetrievalStatus,
+)
+
+__all__ = [
+    "DEFAULT_KNOWLEDGE_MANIFEST",
+    "CorpusManifest",
+    "CorpusManifestEntry",
+    "KnowledgeChunk",
+    "KnowledgeCitation",
+    "KnowledgeCorpus",
+    "KnowledgeDocument",
+    "KnowledgeNote",
+    "KnowledgeNoteChunk",
+    "LexicalRetriever",
+    "RetrievalConfig",
+    "RetrievalEvaluationQueryResult",
+    "RetrievalEvaluationReport",
+    "RetrievalEvaluationSummary",
+    "RetrievalHit",
+    "RetrievalIssue",
+    "RetrievalIssueCode",
+    "RetrievalRequest",
+    "RetrievalResult",
+    "RetrievalScoringDefinition",
+    "RetrievalStatus",
+    "evaluate_fixture",
+    "evaluate_retrieval_fixture",
+    "load_corpus",
+    "resolve_citation",
+    "tokenize",
+]

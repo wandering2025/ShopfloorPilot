@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "document_id": "note-insufficient-observation",
+  "version": "v1.0.0",
+  "title": "Synthetic unavailable machine with insufficient evidence",
+  "provenance": "original_synthetic",
+  "provenance_detail": "Original synthetic missing-evidence guidance written for ShopfloorPilot; it contains no inferred condition labels or external maintenance content.",
+  "applicable_capabilities": ["milling", "drilling", "tapping", "inspection"],
+  "chunks": [
+    {
+      "chunk_id": "chunk-insufficient-observation",
+      "evidence_excerpt": "A synthetic machine-unavailable status with no sensor readings or alarm details is insufficient for a diagnostic hypothesis. Request the event time, alarm indication, temperature, vibration, drive-current, and lubrication-pressure fields that apply before proposing an explanation.",
+      "observable_symptoms": [
+        "machine unavailable",
+        "no sensor readings",
+        "no alarm details"
+      ],
+      "observable_signal_fields": [],
+      "possible_explanation": null,
+      "suggested_checks": [
+        "Confirm the run-scoped machine-down event and simulated time.",
+        "Collect the applicable public alarm indication and telemetry fields.",
+        "Do not fill missing readings with expected or future fixture values."
+      ],
+      "additional_signal_fields": [
+        "temperature_millicelsius",
+        "vibration_micrometers_per_second",
+        "drive_current_milliamps",
+        "lubrication_pressure_kilopascals"
+      ],
+      "limitations": [
+        "Unavailable status alone contains no causal discrimination.",
+        "This note intentionally yields missing-evidence requests rather than a possible cause."
+      ]
+    }
+  ]
+}

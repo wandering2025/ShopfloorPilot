@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "scenario_id": "no_feasible_recovery",
+  "seed": 404,
+  "interventions": [
+    {"intervention_id": "intervention-no-feasible-cnc02", "at_seconds": 3000, "kind": "machine_fault", "target_machine_id": "CNC02", "injected_status": "down", "order_to_add": null, "unavailable_until_seconds": 14400, "private_truth_ref": "truth-no-feasible-cnc02"},
+    {"intervention_id": "intervention-no-feasible-cnc03", "at_seconds": 3000, "kind": "machine_fault", "target_machine_id": "CNC03", "injected_status": "down", "order_to_add": null, "unavailable_until_seconds": 14400, "private_truth_ref": "truth-no-feasible-cnc03"}
+  ],
+  "fault_truth": [
+    {"truth_id": "truth-no-feasible-cnc02", "machine_id": "CNC02", "cause_label": "EVAL_ONLY_SENTINEL_CNC02_DRIVE_LOCK", "starts_at_seconds": 3000, "clears_at_seconds": null},
+    {"truth_id": "truth-no-feasible-cnc03", "machine_id": "CNC03", "cause_label": "EVAL_ONLY_SENTINEL_CNC03_LUBE_PRESSURE", "starts_at_seconds": 3000, "clears_at_seconds": null}
+  ],
+  "observation_templates": [
+    {
+      "observation_id": "observation-no-feasible-cnc02",
+      "machine_id": "CNC02",
+      "observed_at_seconds": 3000,
+      "signals": [{"name": "drive_current_milliamps", "base_value": 0, "jitter_min": 0, "jitter_max": 0, "unit": "mA"}],
+      "public_summary": "CNC02 is unavailable and reports no spindle drive current."
+    },
+    {
+      "observation_id": "observation-no-feasible-cnc03",
+      "machine_id": "CNC03",
+      "observed_at_seconds": 3000,
+      "signals": [{"name": "lubrication_pressure_kilopascals", "base_value": 35, "jitter_min": -2, "jitter_max": 2, "unit": "kPa"}],
+      "public_summary": "CNC03 is unavailable following a low lubrication-pressure alarm."
+    }
+  ],
+  "diagnostic_variant": null
+}

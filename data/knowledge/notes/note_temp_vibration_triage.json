@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "document_id": "note-temp-vibration-triage",
+  "version": "v1.0.0",
+  "title": "Synthetic concurrent temperature and vibration triage",
+  "provenance": "original_synthetic",
+  "provenance_detail": "Authored specifically for the ShopfloorPilot synthetic demonstration; no external manual, proprietary text, or measured factory data was used.",
+  "applicable_capabilities": ["milling", "drilling", "tapping"],
+  "chunks": [
+    {
+      "chunk_id": "chunk-temp-vibration-ambiguity",
+      "evidence_excerpt": "In this synthetic demonstration, concurrent elevated temperature and vibration alarms are compatible with several broad conditions. Treat the combination as a triage signal, compare trends, and gather separating evidence before proposing any explanation.",
+      "observable_symptoms": [
+        "concurrent elevated temperature and vibration alarms",
+        "machine reported unavailable"
+      ],
+      "observable_signal_fields": [
+        "temperature_millicelsius",
+        "vibration_micrometers_per_second"
+      ],
+      "possible_explanation": "A thermal-load, rotating-element, tool-interface, lubrication, or measurement condition may be present.",
+      "suggested_checks": [
+        "Compare the two signals with earlier observations from the same synthetic run.",
+        "Repeat the readings and verify sensor identity and attachment.",
+        "Record whether the readings change between unloaded and cutting conditions when an operator can check safely."
+      ],
+      "additional_signal_fields": [
+        "drive_current_milliamps",
+        "lubrication_pressure_kilopascals"
+      ],
+      "limitations": [
+        "The fixture is uncalibrated and supplies no industrial alarm limits.",
+        "The signal combination supports only possible explanations, not a root-cause or repair-completion claim."
+      ]
+    }
+  ]
+}

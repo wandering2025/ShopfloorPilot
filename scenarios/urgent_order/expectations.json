@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "scenario_id": "urgent_order",
+  "expected_outcome": "replan_required",
+  "assertions": [
+    {"code": "urgent-order-added", "message": "The priority order becomes observable only when its evaluator intervention is applied."},
+    {"code": "replan-required", "message": "The added route requires a new candidate bound to the current state version."}
+  ],
+  "alternate_recovery": null,
+  "hard_contradiction": null
+}

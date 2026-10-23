@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "document_id": "note-zero-drive-current",
+  "version": "v1.0.0",
+  "title": "Synthetic unavailable spindle with zero drive current",
+  "provenance": "original_synthetic",
+  "provenance_detail": "Original synthetic troubleshooting guidance for the ShopfloorPilot demonstration; it is not equipment-specific and is based only on named observable fields.",
+  "applicable_capabilities": ["milling", "drilling", "tapping"],
+  "chunks": [
+    {
+      "chunk_id": "chunk-zero-drive-current",
+      "evidence_excerpt": "When a synthetic machine is unavailable and spindle drive current reads zero mA, verify the visible supply indication, enable chain, safety interlock state, drive indication, and current-sensor path. A zero reading alone cannot distinguish an electrical, control, safety, or measurement condition.",
+      "observable_symptoms": [
+        "machine unavailable",
+        "spindle drive current reads zero mA"
+      ],
+      "observable_signal_fields": ["drive_current_milliamps"],
+      "possible_explanation": "An absent supply, disabled enable chain, open interlock, drive-indication issue, or current-measurement issue is possible.",
+      "suggested_checks": [
+        "Have an authorized operator verify visible supply and enable indications without bypassing safeguards.",
+        "Record the safety interlock and drive status indications available to the simulator.",
+        "Repeat or cross-check the current reading before interpreting it."
+      ],
+      "additional_signal_fields": [
+        "temperature_millicelsius",
+        "vibration_micrometers_per_second"
+      ],
+      "limitations": [
+        "The current value is a synthetic observation, not a calibrated electrical measurement.",
+        "The note cannot select among the listed possibilities or authorize restoration."
+      ]
+    }
+  ]
+}

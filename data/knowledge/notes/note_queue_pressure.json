@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "document_id": "note-queue-pressure",
+  "version": "v1.0.0",
+  "title": "Synthetic inspection queue pressure",
+  "provenance": "original_synthetic",
+  "provenance_detail": "Original synthetic operational-context note authored for ShopfloorPilot; it is not a factory throughput benchmark or maintenance manual excerpt.",
+  "applicable_capabilities": ["inspection"],
+  "chunks": [
+    {
+      "chunk_id": "chunk-queue-pressure",
+      "evidence_excerpt": "An increased QC queue depth after a priority order is registered is operational load evidence, not by itself evidence of an equipment fault. Compare arrivals, completions, and current availability before deciding whether maintenance guidance is relevant.",
+      "observable_symptoms": [
+        "QC queue depth increased after a priority order",
+        "visible inspection queue pressure"
+      ],
+      "observable_signal_fields": ["queue_depth_units"],
+      "possible_explanation": null,
+      "suggested_checks": [
+        "Compare recent order arrivals with inspection completions.",
+        "Check the current public availability of the inspection resource.",
+        "Keep scheduling congestion separate from maintenance hypotheses."
+      ],
+      "additional_signal_fields": [],
+      "limitations": [
+        "The queue value is synthetic and does not establish capacity, service-time, or equipment-health limits.",
+        "It cannot confirm a fault."
+      ]
+    }
+  ]
+}

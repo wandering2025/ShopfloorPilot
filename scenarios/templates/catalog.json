@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "machines": [
+    {
+      "machine_id": "CNC01",
+      "display_name": "CNC 01 Drill and Tap",
+      "kind": "processing",
+      "capabilities": ["drilling", "tapping"],
+      "availability_windows": [{"start_seconds": 0, "end_seconds": 28800}],
+      "status": "available"
+    },
+    {
+      "machine_id": "CNC02",
+      "display_name": "CNC 02 Mill and Slot",
+      "kind": "processing",
+      "capabilities": ["milling", "slotting"],
+      "availability_windows": [{"start_seconds": 0, "end_seconds": 28800}],
+      "status": "available"
+    },
+    {
+      "machine_id": "CNC03",
+      "display_name": "CNC 03 Flexible Alternative",
+      "kind": "processing",
+      "capabilities": ["drilling", "milling"],
+      "availability_windows": [{"start_seconds": 0, "end_seconds": 28800}],
+      "status": "available"
+    },
+    {
+      "machine_id": "QC01",
+      "display_name": "QC 01 Inspection",
+      "kind": "inspection",
+      "capabilities": ["inspection"],
+      "availability_windows": [{"start_seconds": 0, "end_seconds": 28800}],
+      "status": "available"
+    }
+  ],
+  "products": [
+    {
+      "product_id": "prod_aluminum_mounting_plate",
+      "canonical_name": "Aluminum Mounting Plate",
+      "route_id": "route_aluminum_plate",
+      "operations": [
+        {
+          "operation_template_id": "plate-mill",
+          "sequence_index": 0,
+          "name": "Mill plate profile",
+          "required_capability": "milling",
+          "duration_seconds": 900
+        },
+        {
+          "operation_template_id": "plate-drill",
+          "sequence_index": 1,
+          "name": "Drill mounting holes",
+          "required_capability": "drilling",
+          "duration_seconds": 420
+        },
+        {
+          "operation_template_id": "plate-inspect",
+          "sequence_index": 2,
+          "name": "Inspect mounting plate",
+          "required_capability": "inspection",
+          "duration_seconds": 180
+        }
+      ]
+    },
+    {
+      "product_id": "prod_steel_bracket",
+      "canonical_name": "Steel Support Bracket",
+      "route_id": "route_steel_bracket",
+      "operations": [
+        {
+          "operation_template_id": "bracket-slot",
+          "sequence_index": 0,
+          "name": "Slot bracket",
+          "required_capability": "slotting",
+          "duration_seconds": 720
+        },
+        {
+          "operation_template_id": "bracket-drill",
+          "sequence_index": 1,
+          "name": "Drill bracket holes",
+          "required_capability": "drilling",
+          "duration_seconds": 360
+        },
+        {
+          "operation_template_id": "bracket-inspect",
+          "sequence_index": 2,
+          "name": "Inspect bracket",
+          "required_capability": "inspection",
+          "duration_seconds": 180
+        }
+      ]
+    },
+    {
+      "product_id": "prod_actuator_base",
+      "canonical_name": "Actuator Base",
+      "route_id": "route_actuator_base",
+      "operations": [
+        {
+          "operation_template_id": "base-mill",
+          "sequence_index": 0,
+          "name": "Mill actuator base",
+          "required_capability": "milling",
+          "duration_seconds": 1080
+        },
+        {
+          "operation_template_id": "base-tap",
+          "sequence_index": 1,
+          "name": "Tap actuator threads",
+          "required_capability": "tapping",
+          "duration_seconds": 480
+        },
+        {
+          "operation_template_id": "base-inspect",
+          "sequence_index": 2,
+          "name": "Inspect actuator base",
+          "required_capability": "inspection",
+          "duration_seconds": 240
+        }
+      ]
+    }
+  ]
+}

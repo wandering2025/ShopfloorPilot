@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "fixture_set_id": "s10-order-requests-v1",
+  "description": "Fixed S10 order-request fixtures. scripted_draft is what the labeled offline fake returns as the model's span draft; expected is the deterministic normalized result. Urgent fixtures run after the explicit deterministic bootstrap of the urgent_order scenario (initial plan applied, simulation advanced to second 3599, so the decision boundary is 3600). Relative due phrases resolve against the decision boundary; today resolves to the scenario shift boundary 28800.",
+  "fixtures": [
+    {
+      "fixture_id": "normal-en-plate-today",
+      "category": "normal",
+      "scenario": "normal",
+      "request_text": "Please add 2 Aluminum Mounting Plates, due today.",
+      "scripted_draft": {"request_type": "new_order", "product_text": "Aluminum Mounting Plate", "quantity_text": "2", "due_texts": ["today"], "priority": "normal", "priority_text": null, "requested_route_id": null, "requested_capabilities": [], "requested_machine_ids": []},
+      "expected": {"status": "success", "product_id": "prod_aluminum_mounting_plate", "route_id": "route_aluminum_plate", "quantity": 2, "due_time_seconds": 28800, "due_basis": "scenario_shift_boundary", "release_time_seconds": 0, "priority": "normal", "priority_weight": 2}
+    },
+    {
+      "fixture_id": "normal-zh-plate-today",
+      "category": "normal",
+      "scenario": "normal",
+      "request_text": "今天需要 2 件铝安装板。",
+      "scripted_draft": {"request_type": "new_order", "product_text": "铝安装板", "quantity_text": "2", "due_texts": ["今天"], "priority": "normal", "priority_text": null, "requested_route_id": null, "requested_capabilities": [], "requested_machine_ids": []},
+      "expected": {"status": "success", "product_id": "prod_aluminum_mounting_plate", "route_id": "route_aluminum_plate", "quantity": 2, "due_time_seconds": 28800, "due_basis": "scenario_shift_boundary", "release_time_seconds": 0, "priority": "normal", "priority_weight": 2}
+    },
+    {
+      "fixture_id": "normal-en-base-4h",
+      "category": "normal",
+      "scenario": "normal",
+      "request_text": "We need one Actuator Base within 4 hours.",
+      "scripted_draft": {"request_type": "new_order", "product_text": "Actuator Base", "quantity_text": "one", "due_texts": ["within 4 hours"], "priority": "normal", "priority_text": null, "requested_route_id": null, "requested_capabilities": [], "requested_machine_ids": []},
+      "expected": {"status": "success", "product_id": "prod_actuator_base", "route_id": "route_actuator_base", "quantity": 1, "due_time_seconds": 14400, "due_basis": "decision_boundary_offset", "release_time_seconds": 0, "priority": "normal", "priority_weight": 2}
+    },
+    {
+      "fixture_id": "urgent-en-plate-2h",
+      "category": "urgent",
+      "scenario": "urgent_order",
+      "request_text": "Urgent: 1 aluminum mounting plate within 2 hours.",
+      "scripted_draft": {"request_type": "new_order", "product_text": "aluminum mounting plate", "quantity_text": "1", "due_texts": ["within 2 hours"], "priority": "urgent", "priority_text": "Urgent", "requested_route_id": null, "requested_capabilities": [], "requested_machine_ids": []},
+      "expected": {"status": "success", "product_id": "prod_aluminum_mounting_plate", "route_id": "route_aluminum_plate", "quantity": 1, "due_time_seconds": 10800, "due_basis": "decision_boundary_offset", "release_time_seconds": 3600, "priority": "urgent", "priority_weight": 10}
+    },
+    {
+      "fixture_id": "urgent-zh-plate-90min",
+      "category": "urgent",
+      "scenario": "urgent_order",
+      "request_text": "加急插单：铝制安装板 两件，90分钟内完成。",
+      "scripted_draft": {"request_type": "new_order", "product_text": "铝制安装板", "quantity_text": "两件", "due_texts": ["90分钟内"], "priority": "urgent", "priority_text": "加急插单", "requested_route_id": null, "requested_capabilities": [], "requested_machine_ids": []},
+      "expected": {"status": "success", "product_id": "prod_aluminum_mounting_plate", "route_id": "route_aluminum_plate", "quantity": 2, "due_time_seconds": 9000, "due_basis": "decision_boundary_offset", "release_time_seconds": 3600, "priority": "urgent", "priority_weight": 10}
+    },
+    {
+      "fixture_id": "urgent-en-bracket-units",
+      "category": "urgent",
+      "scenario": "urgent_order",
+      "request_text": "Rush order: 1 steel bracket needed in 120 minutes (2 hours).",
+      "scripted_draft": {"request_type": "new_order", "product_text": "steel bracket", "quantity_text": "1", "due_texts": ["in 120 minutes", "2 hours"], "priority": "urgent", "priority_text": "Rush order", "requested_route_id": null, "requested_capabilities": [], "requested_machine_ids": []},
+      "expected": {"status": "success", "product_id": "prod_steel_bracket", "route_id": "route_steel_bracket", "quantity": 1, "due_time_seconds": 10800, "due_basis": "decision_boundary_offset", "release_time_seconds": 3600, "priority": "urgent", "priority_weight": 10}
+    },
+    {
+      "fixture_id": "ambiguous-few-plates-soon",
+      "category": "ambiguous",
+      "scenario": "normal",
+      "request_text": "Make a few mounting plates soon.",
+      "scripted_draft": {"request_type": "new_order", "product_text": "mounting plate", "quantity_text": null, "due_texts": [], "priority": "normal", "priority_text": null, "requested_route_id": null, "requested_capabilities": [], "requested_machine_ids": []},
+      "expected": {"status": "clarification_required", "issue_codes": ["ambiguous_quantity", "missing_due_time"], "unresolved_fields": ["quantity", "due_time"]}
+    },
+    {
+      "fixture_id": "unsupported-weld-titanium",
+      "category": "unsupported",
+      "scenario": "normal",
+      "request_text": "Weld 2 titanium gears today.",
+      "scripted_draft": {"request_type": "new_order", "product_text": "titanium gears", "quantity_text": "2", "due_texts": ["today"], "priority": "normal", "priority_text": null, "requested_route_id": null, "requested_capabilities": ["welding"], "requested_machine_ids": []},
+      "expected": {"status": "rejected", "issue_codes": ["unsupported_process", "unsupported_product", "unknown_capability"], "unresolved_fields": ["capabilities", "product"]}
+    }
+  ]
+}

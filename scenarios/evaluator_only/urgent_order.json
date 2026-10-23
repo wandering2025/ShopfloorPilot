@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "scenario_id": "urgent_order",
+  "seed": 202,
+  "interventions": [
+    {
+      "intervention_id": "intervention-urgent-order",
+      "at_seconds": 3600,
+      "kind": "add_order",
+      "target_machine_id": null,
+      "injected_status": null,
+      "order_to_add": {"order_id": "order-urgent-009", "product_id": "prod_aluminum_mounting_plate", "quantity": 1, "release_time_seconds": 3600, "due_time_seconds": 4800, "priority_weight": 10, "status": "pending"},
+      "unavailable_until_seconds": null,
+      "private_truth_ref": null
+    }
+  ],
+  "fault_truth": [],
+  "observation_templates": [
+    {
+      "observation_id": "observation-urgent-queue",
+      "machine_id": "QC01",
+      "observed_at_seconds": 3600,
+      "signals": [
+        {"name": "queue_depth_units", "base_value": 4, "jitter_min": 0, "jitter_max": 1, "unit": "units"}
+      ],
+      "public_summary": "A newly registered priority order increases visible queue pressure."
+    }
+  ],
+  "diagnostic_variant": null
+}

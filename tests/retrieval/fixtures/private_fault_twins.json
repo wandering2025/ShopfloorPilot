@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "fixture_id": "s08-private-fault-truth-twins-v1",
+  "cases": [
+    {
+      "case_id": "private-truth-twin-alpha",
+      "hidden_truth": "TEST_ONLY_OPAQUE_ALPHA_7C4A1D",
+      "public_observation": {
+        "event_id": "event-private-twin-observation",
+        "run_id": "run-private-truth-twins",
+        "sequence": 1,
+        "simulated_time_seconds": 2700,
+        "event_type": "observation_recorded",
+        "observation": {
+          "schema_version": 1,
+          "observation_id": "observation-private-twin-cnc02",
+          "run_id": "run-private-truth-twins",
+          "machine_id": "CNC02",
+          "observed_at_seconds": 2700,
+          "signals": [
+            {
+              "name": "temperature_millicelsius",
+              "value": 71008,
+              "unit": "mdegC"
+            },
+            {
+              "name": "vibration_micrometers_per_second",
+              "value": 8877,
+              "unit": "um_per_s"
+            }
+          ],
+          "summary": "Synthetic CNC02 observation with concurrent elevated temperature and vibration alarms.",
+          "recorded_at_utc": null
+        }
+      }
+    },
+    {
+      "case_id": "private-truth-twin-beta",
+      "hidden_truth": "TEST_ONLY_OPAQUE_BETA_2F9E63",
+      "public_observation": {
+        "event_id": "event-private-twin-observation",
+        "run_id": "run-private-truth-twins",
+        "sequence": 1,
+        "simulated_time_seconds": 2700,
+        "event_type": "observation_recorded",
+        "observation": {
+          "schema_version": 1,
+          "observation_id": "observation-private-twin-cnc02",
+          "run_id": "run-private-truth-twins",
+          "machine_id": "CNC02",
+          "observed_at_seconds": 2700,
+          "signals": [
+            {
+              "name": "temperature_millicelsius",
+              "value": 71008,
+              "unit": "mdegC"
+            },
+            {
+              "name": "vibration_micrometers_per_second",
+              "value": 8877,
+              "unit": "um_per_s"
+            }
+          ],
+          "summary": "Synthetic CNC02 observation with concurrent elevated temperature and vibration alarms.",
+          "recorded_at_utc": null
+        }
+      }
+    }
+  ]
+}

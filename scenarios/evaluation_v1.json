@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "manifest_id": "s13-fair-evaluation-v1",
+  "frozen_before_runs": true,
+  "frozen_at": "2026-10-21T19:50:00+02:00",
+  "predecessor_commit": "c91b0118875a4d690494647918d359839fb59f12",
+  "prompt_contract_sha256": "9243a1ab99f959121f257b556baffd288c7b6c94429f8965d301eda4eeca2399",
+  "sources": {
+    "scenario_manifest": {
+      "path": "scenarios/manifest.json",
+      "sha256": "865b525d30bc3abd7c6399bfef22f7b0d716c91f61ba2812f17283c54f897f5e"
+    },
+    "order_requests": {
+      "path": "data/agent_requests/requests.json",
+      "sha256": "36ed8277006ead7201fd3f83bf0abb939e0cd016fcd42528f3d82c4d0436f5e1"
+    },
+    "retrieval_fixture": {
+      "path": "tests/retrieval/fixtures/frozen_queries.json",
+      "sha256": "a2b51aa774f2f57577cf5cdc77de96b09414e0fa7110e1de7974f5eb9082e1e6"
+    },
+    "knowledge_manifest": {
+      "path": "data/knowledge/manifest.json",
+      "sha256": "faf4a02a40064c3488e2165244176be6f5d7eb1c25b0af0a3c8f0f306c5d1a08"
+    },
+    "prompt_builder": {
+      "path": "src/shopfloor_pilot/agent/prompts.py",
+      "sha256": "3888da21fbfead4c0d357b1f78e9e11cd3fbe56cd6bcdd8fb4c780b21647b578"
+    },
+    "tool_registry": {
+      "path": "src/shopfloor_pilot/tools/supervisor_tools.py",
+      "sha256": "ab92a7abb5a1f84049aa90297079abe0fbebf55512d7f4b140342a2ef2481797"
+    }
+  },
+  "scenario_contracts": [
+    {
+      "scenario_id": "normal",
+      "public_sha256": "5133108a7c99e3d99aeb1f6d78e70fbebcc2acda385a6f1903f2b69f0f360486",
+      "evaluator_sha256": "cd086ea35fa274543207281ab993acf9a1f1460e95ed9dec73ac1c7168582e83",
+      "expectation_sha256": "1b6f67a915edc32653709f6a69c03070a758972a334332a4eaa96fb78510f664",
+      "intervention_seconds": [7200],
+      "expected_terminal": ["completed", "scenario_completed"],
+      "baseline_input": {
+        "kind": "structured_order_fixture",
+        "fixture_id": "normal-en-plate-today"
+      },
+      "model_request": "Please add 2 Aluminum Mounting Plates, due today."
+    },
+    {
+      "scenario_id": "urgent_order",
+      "public_sha256": "a8f5ca788c968f011712579190c26b20c1f37596412db4e53302910591d3dc0b",
+      "evaluator_sha256": "1ffc80e406aff3dd6de2878c05e4b274a062fcc5c7bd51306119dcafa0d7acf7",
+      "expectation_sha256": "43805f53db5cd155dcf5e94d591ec5e2de1af55755bed975bb9a3e25f748dd7b",
+      "intervention_seconds": [3600],
+      "expected_terminal": ["completed", "scenario_completed"],
+      "baseline_input": {
+        "kind": "structured_order_fixture",
+        "fixture_id": "urgent-zh-plate-90min"
+      },
+      "model_request": "加急插单：铝制安装板 两件，90分钟内完成。"
+    },
+    {
+      "scenario_id": "machine_breakdown",
+      "public_sha256": "369d187db4d7712b1c7a59cca5371d00ca06ba79995283d62d1126aaf847c714",
+      "evaluator_sha256": "5064165a6d92384305b282c57ae4b1bb2f189238695c73d9251b96cd11d996cd",
+      "expectation_sha256": "3e7155d19f408dec7b0340264d51fb6f27fa21f7b6d42309cd7a84acb86645fd",
+      "intervention_seconds": [2700],
+      "expected_terminal": ["completed", "scenario_completed"],
+      "baseline_input": {
+        "kind": "observable_alarm_rule",
+        "focus_machine_ids": ["CNC02"],
+        "query": "elevated temperature and vibration alarm on a milling and slotting machine"
+      },
+      "model_request": "Operator report: CNC02 stopped after temperature and vibration alarms. Diagnose from observable evidence and propose a recovery schedule."
+    },
+    {
+      "scenario_id": "no_feasible_recovery",
+      "public_sha256": "377d6236867c206b5fb6d201ac714a0552279ba121844411fb82d7bfa3d6111d",
+      "evaluator_sha256": "07dda48f77c0a54654693389353bd2a205d7de64f63ad3ed967423c381954507",
+      "expectation_sha256": "1c32a957fc8b939f35667bafe1d2a817d4665e01fe5a21869a6a84fb0b30fff7",
+      "intervention_seconds": [3000, 3000],
+      "expected_terminal": ["blocked", "no_feasible_schedule"],
+      "baseline_input": {
+        "kind": "observable_alarm_rule",
+        "focus_machine_ids": ["CNC02", "CNC03"],
+        "query": "zero drive current and low lubrication pressure on milling machines"
+      },
+      "model_request": "Operator report: CNC02 and CNC03 stopped with drive and lubrication alarms. Diagnose from observable evidence and propose a recovery schedule."
+    }
+  ],
+  "arms": {
+    "baseline": {
+      "provider_identity": "deterministic-baseline",
+      "capability_claim": "none",
+      "policy": "fixed deterministic tool program over frozen structured order input or observable alarm summaries",
+      "privileged_truth": false,
+      "shared_execution_path": true
+    },
+    "scripted": {
+      "provider_identity": "scripted-fake",
+      "capability_claim": "infrastructure only",
+      "policy": "pre-recorded valid tool-call fixture with digest-bound identities",
+      "privileged_truth": false,
+      "shared_execution_path": true
+    },
+    "deepseek": {
+      "provider_identity": "deepseek",
+      "capability_claim": "interpretation, evidence selection and orchestration only",
+      "policy": "semantically equivalent natural-language request",
+      "privileged_truth": false,
+      "shared_execution_path": true
+    }
+  },
+  "shared_boundaries": {
+    "observation": "ModelReadableApplicationServices plus allowlisted diagnostic observations; evaluator truth and future interventions excluded",
+    "actions": [
+      "submit_order_interpretation",
+      "get_observable_snapshot",
+      "summarize_event_log",
+      "list_supported_routes",
+      "summarize_observations",
+      "retrieve_guidance",
+      "diagnose_machine",
+      "solve_schedule",
+      "validate_candidate",
+      "persist_proposal"
+    ],
+    "approval_policy": "policy:deterministic (evaluation batch mode only)",
+    "simulation_during_inference_and_approval": "paused",
+    "intervention_clock": "simulated integer seconds",
+    "time_intervals": "half-open [start,end)",
+    "scenario_randomness": "scenario seed drives deterministic observation jitter and solver seed",
+    "workflow_randomness": "independent fresh database and provider workflow for every attempt"
+  },
+  "solver": {
+    "implementation": "OR-Tools CP-SAT",
+    "version": "9.15.6755",
+    "max_time_seconds": 5.0,
+    "num_search_workers": 1,
+    "seed_source": "evaluation case seed",
+    "relative_gap_limit": 0.0,
+    "absolute_gap_limit": 0.0,
+    "objective": "lexicographic weighted total tardiness, then makespan",
+    "validator": "independent S03 validate_candidate"
+  },
+  "live_configuration": {
+    "provider": {
+      "base_url": "https://api.deepseek.com",
+      "model": "deepseek-flash",
+      "served_model_version": "DeepSeek-V4.1-Flash-1017",
+      "thinking": "disabled",
+      "max_output_tokens": 1024,
+      "max_provider_attempts": 8,
+      "max_tools": 16,
+      "max_retries_per_request": 2,
+      "attempt_timeout_seconds": 30,
+      "max_active_seconds": 120,
+      "max_total_tokens": 32000
+    },
+    "pricing": {
+      "currency": "USD",
+      "tariff_date": "2026-10-21",
+      "tariff_source": "https://api-docs.deepseek.com/quick_start/pricing/",
+      "pricing_basis": "conservative peak rate per one million tokens",
+      "input_cache_hit": "0.006",
+      "input_cache_miss": "0.30",
+      "output": "1.20"
+    }
+  },
+  "campaigns": {
+    "offline": {
+      "scenarios": ["normal", "urgent_order", "machine_breakdown", "no_feasible_recovery"],
+      "seeds": [0, 1, 2, 3, 4],
+      "repetitions_per_seed": 1,
+      "arms": ["baseline", "scripted"],
+      "aggregate_cap_usd": null,
+      "workflow_cap_usd": null
+    },
+    "paired_live": {
+      "scenarios": ["normal", "urgent_order", "machine_breakdown", "no_feasible_recovery"],
+      "seeds": [0, 1, 2],
+      "repetitions_per_seed": 1,
+      "arms": ["baseline", "deepseek"],
+      "aggregate_cap_usd": "0.1500",
+      "workflow_cap_usd": "0.0125"
+    },
+    "reliability": {
+      "scenarios": ["normal", "urgent_order", "machine_breakdown", "no_feasible_recovery"],
+      "seeds": [0, 1, 2, 3, 4],
+      "repetitions_per_seed": 5,
+      "arms": ["deepseek"],
+      "aggregate_cap_usd": "2.00",
+      "workflow_cap_usd": "0.0125"
+    }
+  },
+  "metrics": [
+    "hard_constraint_violations",
+    "workflow_completion_and_expected_safe_block",
+    "solver_outcome",
+    "interpretation_exactness",
+    "tool_schema_and_tool_result_rejections",
+    "stale_rejection",
+    "citation_resolution_and_kind_support",
+    "claim_audit_contradictions_and_ambiguities",
+    "retrieval_top3_and_no_evidence_abstention",
+    "actual_predicted_and_censored_schedule_metrics",
+    "recovery_and_wasted_processing_seconds",
+    "provider_latency_active_seconds_tokens_and_cost"
+  ],
+  "thresholds": {
+    "normal_success_rate": 0.95,
+    "urgent_order_success_rate": 0.95,
+    "machine_breakdown_success_rate": 0.95,
+    "no_feasible_recovery_safe_block_rate": 1.0,
+    "invalid_applied_schedules": 0,
+    "invariant_failures": 0,
+    "truth_leaks": 0,
+    "persisted_claim_contradictions": 0,
+    "mean_cost_usd_per_workflow": 0.02
+  },
+  "regression_cases": [
+    "S11 initial live token-ceiling exhaustion",
+    "truncated persist_proposal arguments",
+    "factually wrong machine-status claim",
+    "repeated calls without progress",
+    "evidence kind mismatch feedback",
+    "order-workflow reread loop",
+    "decision-boundary T+1 completion",
+    "claim-audit historical-time rule",
+    "malformed output",
+    "unknown tool",
+    "timeout",
+    "provider outage",
+    "budget exhaustion",
+    "stale state",
+    "duplicate apply",
+    "no evidence",
+    "impossible schedule",
+    "process restart"
+  ]
+}

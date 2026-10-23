@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "document_id": "note-restoration-authority",
+  "version": "v1.0.0",
+  "title": "Synthetic maintenance restoration authority boundary",
+  "provenance": "original_synthetic",
+  "provenance_detail": "Original synthetic workflow-safety note authored for ShopfloorPilot's operator-confirmed restoration contract.",
+  "applicable_capabilities": ["milling", "drilling", "tapping", "inspection"],
+  "chunks": [
+    {
+      "chunk_id": "chunk-restoration-authority",
+      "evidence_excerpt": "Only an explicit operator or scenario-harness confirmation may restore a synthetic machine. A diagnostic hypothesis, retrieved note, improved reading, or passage of simulated time cannot declare repair complete or change machine availability.",
+      "observable_symptoms": [
+        "machine remains unavailable while checks are pending",
+        "readings improve without an explicit restoration event"
+      ],
+      "observable_signal_fields": [],
+      "possible_explanation": null,
+      "suggested_checks": [
+        "Record inspection or measurement results as observations.",
+        "Ask the authorized operator or scenario harness for an explicit restoration decision.",
+        "Keep diagnostic output separate from the state-changing restoration action."
+      ],
+      "additional_signal_fields": [],
+      "limitations": [
+        "This note defines authority for the synthetic application only.",
+        "It supplies no repair procedure and never represents completed maintenance."
+      ]
+    }
+  ]
+}

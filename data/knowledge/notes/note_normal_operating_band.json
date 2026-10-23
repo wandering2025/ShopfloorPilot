@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "document_id": "note-normal-operating-band",
+  "version": "v1.0.0",
+  "title": "Synthetic ordinary temperature and vibration band",
+  "provenance": "original_synthetic",
+  "provenance_detail": "Original synthetic normal-condition note authored for ShopfloorPilot; its ordinary band is fixture-relative and not an industrial specification.",
+  "applicable_capabilities": ["milling", "drilling", "tapping"],
+  "chunks": [
+    {
+      "chunk_id": "chunk-normal-operating-band",
+      "evidence_excerpt": "Temperature and vibration readings described as remaining in the ordinary synthetic operating band support continued observation rather than a fault hypothesis. Preserve the trend because an ordinary reading does not prove that every machine condition is healthy.",
+      "observable_symptoms": [
+        "temperature remains in the ordinary synthetic operating band",
+        "vibration remains in the ordinary synthetic operating band"
+      ],
+      "observable_signal_fields": [
+        "temperature_millicelsius",
+        "vibration_micrometers_per_second"
+      ],
+      "possible_explanation": null,
+      "suggested_checks": [
+        "Retain the observation as a synthetic trend reference.",
+        "Continue normal observation at the next planned checkpoint.",
+        "Investigate only if another public alarm, status change, or conflicting reading appears."
+      ],
+      "additional_signal_fields": [],
+      "limitations": [
+        "The ordinary band is uncalibrated and scenario-specific.",
+        "This note neither certifies health nor rules out unobserved conditions."
+      ]
+    }
+  ]
+}

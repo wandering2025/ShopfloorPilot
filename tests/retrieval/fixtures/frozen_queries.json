@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "fixture_id": "s08-frozen-retrieval-queries-v1",
+  "frozen_before_scoring": true,
+  "scoring": {
+    "top_k": 3,
+    "answerable_query_count": 9,
+    "no_evidence_query_count": 3,
+    "minimum_answerable_top3_hits": 8,
+    "required_no_evidence_abstentions": 3,
+    "answerable_success_definition": "At least one labeled relevant chunk appears among the first three ranked results.",
+    "no_evidence_success_definition": "Retrieval returns a typed no-evidence status with an empty result list."
+  },
+  "queries": [
+    {
+      "query_id": "answerable-01-temp-vibration",
+      "query": "CNC machine has concurrent elevated temperature and vibration alarms; what evidence should be checked?",
+      "top_k": 3,
+      "relevant_chunk_ids": [
+        "chunk-temp-vibration-ambiguity",
+        "chunk-tool-holder-check",
+        "chunk-rotating-component-screen"
+      ]
+    },
+    {
+      "query_id": "answerable-02-tool-holder",
+      "query": "check tool-holder seating, debris, and runout after a vibration alarm",
+      "top_k": 3,
+      "relevant_chunk_ids": ["chunk-tool-holder-check"]
+    },
+    {
+      "query_id": "answerable-03-rotating-component",
+      "query": "screen repeatable rotating-component vibration with trend, unloaded, and coast-down observations",
+      "top_k": 3,
+      "relevant_chunk_ids": ["chunk-rotating-component-screen"]
+    },
+    {
+      "query_id": "answerable-04-zero-current",
+      "query": "spindle unavailable and drive current reads zero mA",
+      "top_k": 3,
+      "relevant_chunk_ids": ["chunk-zero-drive-current"]
+    },
+    {
+      "query_id": "answerable-05-low-lubrication",
+      "query": "low lubrication pressure alarm; inspect reservoir, filter, pump, gauge, and leaks",
+      "top_k": 3,
+      "relevant_chunk_ids": ["chunk-low-lubrication-pressure"]
+    },
+    {
+      "query_id": "answerable-06-normal-band",
+      "query": "temperature and vibration remain in the ordinary synthetic operating band",
+      "top_k": 3,
+      "relevant_chunk_ids": ["chunk-normal-operating-band"]
+    },
+    {
+      "query_id": "answerable-07-conflicting-readings",
+      "query": "same simulated timestamp has conflicting vibration readings from the same machine",
+      "top_k": 3,
+      "relevant_chunk_ids": ["chunk-conflicting-readings"]
+    },
+    {
+      "query_id": "answerable-08-insufficient-observation",
+      "query": "machine is unavailable but there are no sensor readings or alarm details",
+      "top_k": 3,
+      "relevant_chunk_ids": ["chunk-insufficient-observation"]
+    },
+    {
+      "query_id": "answerable-09-queue-pressure",
+      "query": "QC queue depth increased after a priority order",
+      "top_k": 3,
+      "relevant_chunk_ids": ["chunk-queue-pressure"]
+    },
+    {
+      "query_id": "no-evidence-01-robot-gripper",
+      "query": "robot gripper vacuum cup tear",
+      "top_k": 3,
+      "expect_no_evidence": true
+    },
+    {
+      "query_id": "no-evidence-02-paint-booth",
+      "query": "paint booth solvent humidity excursion",
+      "top_k": 3,
+      "expect_no_evidence": true
+    },
+    {
+      "query_id": "no-evidence-03-barcode-printer",
+      "query": "warehouse barcode printer ribbon wrinkle",
+      "top_k": 3,
+      "expect_no_evidence": true
+    }
+  ]
+}

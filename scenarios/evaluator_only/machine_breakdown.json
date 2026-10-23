@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "scenario_id": "machine_breakdown",
+  "seed": 303,
+  "interventions": [
+    {
+      "intervention_id": "intervention-breakdown-cnc02",
+      "at_seconds": 2700,
+      "kind": "machine_fault",
+      "target_machine_id": "CNC02",
+      "injected_status": "down",
+      "order_to_add": null,
+      "unavailable_until_seconds": 7200,
+      "private_truth_ref": "truth-breakdown-cnc02"
+    }
+  ],
+  "fault_truth": [
+    {"truth_id": "truth-breakdown-cnc02", "machine_id": "CNC02", "cause_label": "EVAL_ONLY_SENTINEL_SPINDLE_BEARING_DAMAGE", "starts_at_seconds": 2700, "clears_at_seconds": 7200}
+  ],
+  "observation_templates": [
+    {
+      "observation_id": "observation-breakdown-cnc02",
+      "machine_id": "CNC02",
+      "observed_at_seconds": 2700,
+      "signals": [
+        {"name": "temperature_millicelsius", "base_value": 71400, "jitter_min": -500, "jitter_max": 500, "unit": "mdegC"},
+        {"name": "vibration_micrometers_per_second", "base_value": 8900, "jitter_min": -250, "jitter_max": 250, "unit": "um_per_s"}
+      ],
+      "public_summary": "CNC02 is unavailable after elevated temperature and vibration alarms."
+    }
+  ],
+  "diagnostic_variant": {
+    "variant_id": "ambiguous-bearing-or-tool-imbalance",
+    "truth_ref": "truth-breakdown-cnc02",
+    "plausible_hypotheses": ["spindle bearing degradation", "tool imbalance"],
+    "ambiguity_reason": "The available synthetic temperature and vibration summaries support both hypotheses without calibrated causal discrimination."
+  }
+}
