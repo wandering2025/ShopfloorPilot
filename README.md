@@ -48,7 +48,8 @@ and eight orders across three product routes. An LLM agent works on it through t
 
 | Situation | What the agent does |
 | --- | --- |
-| **Urgent order:** *"Urgent: a customer needs 2 steel brackets within 90 minutes."* | Interprets the text into a typed order draft where every field is tied to a quoted phrase, calls the CP-SAT solver to insert the order and gets the plan independently validated. A vague request ("a few brackets sometime soon") is not guessed: the agent asks for clarification and drafts nothing. |
+| **New order:** *"New customer order: 3 actuator bases, due within 4 hours."* | Interprets the text into a typed order draft where every field is tied to a quoted phrase (no urgency words, so normal priority), then schedules the whole line: all 36 operations of the 9 orders go to capable machines, in sequence and without overlaps, and every due date is met. The plan is independently validated before it is proposed. A vague request ("a few brackets sometime soon") is not guessed: the agent asks for clarification and drafts nothing. |
+| **Urgent order:** *"Urgent: a customer needs 2 steel brackets within 90 minutes."* arrives mid-shift | Recognizes the urgency phrase (priority weight 10), then re-plans the running line: completed and running work stays fixed, existing operations are re-timed or moved to another capable machine, and the urgent order finishes on time while every other order still meets its due date. |
 | **Machine breakdown:** CNC02 fails mid-operation | Reads the observable state and telemetry, retrieves maintenance guidance (BM25 retrieval), produces explicitly unconfirmed hypotheses with cited evidence, then re-plans around the failed machine. The interrupted job restarts in full on CNC03. |
 | **No feasible recovery:** two machines down | Investigates the same way. When the solver proves that no feasible schedule exists, the workflow stops safely: nothing is applied and the plant state is unchanged. |
 
