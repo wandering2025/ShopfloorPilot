@@ -16,13 +16,11 @@
   <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue">
 </p>
 
-<p align="center">
-  <video src="docs/media/shopfloorpilot-demo.mp4" poster="docs/media/demo-poster.jpg" controls muted width="860"></video>
-</p>
+https://github.com/user-attachments/assets/5a7654e0-1b48-46ea-bfb1-948329c15495
 
 <p align="center">
-  <sub>90-second demo, recorded from live agent runs on synthetic factory data.
-  <a href="docs/media/shopfloorpilot-demo.mp4">Open or download the 1080p MP4</a>.</sub>
+  <sub>90-second demo, recorded from live agent runs on synthetic factory data. Press play, sound on.
+  <a href="https://github.com/wandering2025/ShopfloorPilot/raw/refs/heads/main/docs/media/shopfloorpilot-demo.mp4">Download the 1080p MP4</a>.</sub>
 </p>
 
 **In the demo:** &nbsp; **01 New order**: the agent turns a customer request into a typed order and
