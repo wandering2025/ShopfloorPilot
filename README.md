@@ -2,9 +2,9 @@
 
 <p align="center">
   <b>An LLM engineering agent for a simulated manufacturing cell.</b><br>
-  It turns free-text orders and fault reports into validated production plans: it interprets
-  the request, investigates machine telemetry and maintenance guidance, re-plans with a
-  constraint solver, and waits for a human to approve every change.
+  It turns free-text orders and fault reports into validated production plans: it schedules new
+  orders across the whole line, re-plans around urgent orders, diagnoses machine failures from
+  telemetry and maintenance guidance, and waits for a human to approve every change.
 </p>
 
 <p align="center">
@@ -16,11 +16,20 @@
   <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue">
 </p>
 
-https://github.com/user-attachments/assets/b3e9c61d-bf07-4046-82d0-4fc587bbc195
+<p align="center">
+  <video src="docs/media/shopfloorpilot-demo.mp4" poster="docs/media/demo-poster.jpg" controls muted width="860"></video>
+</p>
 
 <p align="center">
-  <sub>90-second demo, recorded from live agent runs on synthetic factory data. <a href="https://github.com/wandering2025/ShopfloorPilot/raw/refs/heads/main/docs/media/shopfloorpilot-demo.mp4">Download the 1080p MP4</a>.</sub>
+  <sub>90-second demo, recorded from live agent runs on synthetic factory data.
+  <a href="docs/media/shopfloorpilot-demo.mp4">Open or download the 1080p MP4</a>.</sub>
 </p>
+
+**In the demo:** &nbsp; **01 New order**: the agent turns a customer request into a typed order and
+schedules the whole line from scratch, then the 3D twin runs the plan. &nbsp; **02 Urgent order**:
+an urgent request arrives mid-shift and the running line is re-planned by priority. &nbsp;
+**03 Machine breakdown**: the agent investigates telemetry and guidance, then re-plans around the
+failed machine. &nbsp; **04 No feasible recovery**: it stops safely instead of inventing a plan.
 
 ## Why ShopfloorPilot
 
@@ -79,7 +88,10 @@ All screenshots are unedited captures of the Streamlit dashboard during live age
 **Factory twin: CNC02 has failed and the approved re-plan reroutes its work (purple arc) to CNC03**
 ![3D factory twin replaying committed events, with the reassignment arc around the failed machine](docs/media/factory-twin.png)
 
-**Proposal review: current versus proposed schedule after the agent inserted an urgent order**
+**New order: the agent's proposal schedules all 36 operations of 9 orders across the line, from scratch**
+![Proposal review: an empty schedule and the proposed full-line schedule](docs/media/dashboard-new-order.png)
+
+**Urgent order: current versus proposed schedule after the agent inserted an urgent order mid-shift**
 ![Proposal review with before/after Gantt charts](docs/media/dashboard-proposal.png)
 
 <table>
